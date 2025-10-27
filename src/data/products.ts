@@ -1,4 +1,4 @@
-import { Product, BrandName, Color, Category, ClientCategory, Size, Season, MaterialName, Collection, Style, NewItem, } from './types_products';
+import { Product, BrandName, Color, Category, ClientCategory, Size, Season, MaterialName, Collection, Style, NewItem, } from '../types/types_products';
 
 export const products: Product[] = [
    {
