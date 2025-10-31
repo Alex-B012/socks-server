@@ -12,7 +12,6 @@ app.use(cors());
 const {
    OZON_CLIENT_ID,
    OZON_API_KEY,
-   OZON_BASE_URL,
    PORT,
 } = process.env;
 
