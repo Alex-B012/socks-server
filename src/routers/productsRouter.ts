@@ -2,6 +2,7 @@ import { Router, Request, Response } from "express";
 // import { callOzonApi } from "../services/ozonApi";
 // import { products } from "../data/products";
 import axios from "axios";
+import { getProductIdentifiers, getProducts } from "../services/utils";
 
 const router = Router();
 
@@ -37,40 +38,27 @@ const router = Router();
 
 router.get("/", async (_req: Request, res: Response) => {
    try {
-      const product_id = "2812258860";
 
-      if (!product_id) {
-         return res.status(400).json({ error: "product_id is required" });
-      }
-
-      // Формируем тело запроса, как требует Ozon
-      // const body = {
-      //    filter: {
-      //       product_id: [product_id],
-      //       visibility: "ALL",
-      //    },
-      //    limit: 100,
-      //    sort_dir: "ASC",
-      // };
-
-      const body = {
-         product_id: [product_id],
-      };
-
-      const response = await axios.post(
-         "https://api-seller.ozon.ru/v3/product/info/list",
-         body,
-         {
-            headers: {
-               "Client-Id": process.env.OZON_CLIENT_ID,
-               "Api-Key": process.env.OZON_API_KEY,
-               "Content-Type": "application/json",
-            },
-         }
+      const listOfProductIdentifiers = await getProductIdentifiers();
+      const listOfProducts = await Promise.all(
+         listOfProductIdentifiers.map(async (item) => {
+            const productDetails = await getProducts(item.product_id);
+            return {
+               ...item,
+               name: productDetails.items.name,
+               sku: productDetails.items.sku,
+               // has_stock: productDetails.items.stocks.has_stock,
+               is_prepayment_allowed: productDetails.items.is_prepayment_allowed,
+               created_at: productDetails.items.created_at,
+               primary_image: productDetails.items.primary_image,
+               images: productDetails.items.images
+            };
+         })
       );
 
-      console.log("From Ozon:", response.data);
-      res.json(response.data);
+      console.log("List of Products with Details:", listOfProducts);
+
+      res.json(listOfProducts);
 
    } catch (err: any) {
       console.error("Ozon API error - get call:", err);
@@ -79,3 +67,14 @@ router.get("/", async (_req: Request, res: Response) => {
 });
 
 export default router;
+
+
+// Формируем тело запроса, как требует Ozon
+// const body = {
+//    filter: {
+//       product_id: [product_id],
+//       visibility: "ALL",
+//    },
+//    limit: 100,
+//    sort_dir: "ASC",
+// };
