@@ -18,7 +18,6 @@ router.get("/", async (_req: Request, res: Response) => {
                name: productDetails.items[0].name,
                sku: productDetails.items[0].sku,
                has_stock: productDetails.items[0].stocks.has_stock,
-               is_prepayment_allowed: productDetails.items[0].is_prepayment_allowed,
                created_at: productDetails.items[0].created_at,
                primary_image: productDetails.items[0].primary_image,
                images: productDetails.items[0].images,
@@ -32,9 +31,10 @@ router.get("/", async (_req: Request, res: Response) => {
             const productPrice_temp = await getProductPrices(item.product_id);
             return {
                ...item,
-               min_price: productPrice_temp.items[0].price_indexes.external_index_data.min_price,
+               min_price: productPrice_temp.items[0].price.min_price,
+               net_price: productPrice_temp.items[0].price.net_price,
                price_index_value: productPrice_temp.items[0].price_indexes.external_index_data.price_index_value,
-               // data: productPrice_temp.items[0]
+               data: productPrice_temp.items[0]
             };
          })
       );
