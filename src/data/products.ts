@@ -31,7 +31,6 @@ export const products: Product[] = [
          collection: Collection.basic,
          style: Style.casual
       },
-      // images: [productsImages.img_2992694054[0]]
    },
    {
       id: 2,
@@ -63,7 +62,6 @@ export const products: Product[] = [
          collection: Collection.basic,
          style: Style.casual
       },
-      // images: [productsImages.img_2883603702[0]]
    },
    {
       id: 3,
@@ -95,7 +93,6 @@ export const products: Product[] = [
          collection: Collection.basic,
          style: Style.evening_festive
       },
-      // images: [productsImages.img_2883603702[0]]
    },
    {
       id: 4,
@@ -127,7 +124,6 @@ export const products: Product[] = [
          collection: Collection.basic,
          style: Style.evening_festive,
       },
-      // images: [productsImages.img_2883603702[0]]
    },
    {
       id: 5,
@@ -159,7 +155,6 @@ export const products: Product[] = [
          collection: Collection.basic,
          style: Style.evening_festive,
       },
-      // images: [productsImages.img_2883603702[0]]
    },
    {
       id: 6,
@@ -191,7 +186,6 @@ export const products: Product[] = [
          collection: Collection.basic,
          style: Style.evening_festive,
       },
-      // images: [productsImages.img_2992694054[0], productsImages.img_2992694054[1], productsImages.img_2992694054[2]]
    }, {
       id: 7,
       sku: 2883603702,
@@ -222,6 +216,5 @@ export const products: Product[] = [
          collection: Collection.basic,
          style: Style.evening_festive,
       },
-      // images: [productsImages.img_2883603702[0], productsImages.img_2883603702[1], productsImages.img_2883603702[2]]
    }
 ]

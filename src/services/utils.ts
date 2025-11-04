@@ -1,7 +1,6 @@
 import axios from "axios";
 import { callOzonApi } from "./ozonApi";
 
-
 interface Product {
    product_id: number;
    offer_id: number;
@@ -19,15 +18,11 @@ export const getProductIdentifiers = async (): Promise<Product[]> => {
 
    try {
       const products_data_temp = await callOzonApi<any>("/v3/product/list", body);
-
       const products_data = products_data_temp.result.items;
-
-      console.log("products_data", products_data)
-
 
       if (Array.isArray(products_data)) {
          const result = products_data.map(({ product_id, offer_id }) => ({ product_id, offer_id }));
-         console.log("From Ozon:", result);
+
          return result;
       } else {
          throw new Error("API response is not an array");
@@ -96,10 +91,8 @@ const delay2 = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 export const getProductPrices = async (product_id: number): Promise<any> => {
    const body = {
-      // cursor: "",
       filter: {
          product_id: [product_id],
-         // visibility: "ALL"
       },
       limit: 100,
    }
@@ -121,23 +114,16 @@ export const getProductPrices = async (product_id: number): Promise<any> => {
             }
          );
 
-         console.log("Prices:", response.data)
-
          return response.data;
       } catch (error: any) {
          if (error.response && error.response.status === 429) {
             console.log(`Rate limit hit. Retrying in ${delayTime / 1000} seconds...`);
 
-
             const retryAfter = error.response.headers['retry-after'];
-            if (retryAfter) {
-               delayTime = parseInt(retryAfter) * 1000;
-            }
+            if (retryAfter) delayTime = parseInt(retryAfter) * 1000;
 
             await delay2(delayTime);
             retries--;
-
-
             delayTime *= 2;
 
             if (retries === 0) {

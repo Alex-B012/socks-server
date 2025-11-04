@@ -58,18 +58,15 @@ export enum Style {
    evening_festive = "Вечерний/Праздничный",
 }
 
-
 interface Material {
    name: MaterialName;
    percentage: number;
 }
 
-
 interface Price {
    price: number;
    price_discount: number;
 }
-
 
 interface About {
    season: Season[];
@@ -77,7 +74,6 @@ interface About {
    collection: Collection;
    style: Style;
 }
-
 
 export interface Product {
    id: number;
@@ -97,5 +93,4 @@ export interface Product {
    items_left: number;
    price: Price;
    about: About;
-   // images: string[];
 }
