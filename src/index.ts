@@ -42,7 +42,7 @@ if (!OZON_CLIENT_ID || !OZON_API_KEY) {
 
 const port = Number(PORT) || 3030;
 
-app.use("/", productsRouter);
+app.use("/products", productsRouter);
 app.get("/test", (req, res) => {
    res.json({ message: "CORS OK" });
 });
