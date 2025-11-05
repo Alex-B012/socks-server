@@ -29,7 +29,8 @@ const corsOptions: cors.CorsOptions = {
 };
 
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(cors());
 
 const {
    OZON_CLIENT_ID,
