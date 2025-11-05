@@ -11,26 +11,28 @@ const website_url = process.env.WEBSITE_URL;
 
 app.use(express.json());
 
-console.log(localhost, website_url);
+const allowedOrigins = [
+   website_url,
+   localhost
+].filter(Boolean);
 
-const corsOptions: cors.CorsOptions = {
+
+// console.log(localhost, website_url);
+app.use(cors({
    origin: (origin, callback) => {
-      const allowedOrigins = [localhost, website_url].filter(Boolean);
       if (!origin || allowedOrigins.includes(origin)) {
          callback(null, true);
       } else {
-         console.warn(`CORS blocked request from origin: ${origin}`);
-         callback(new Error('Not allowed by CORS'));
+         callback(new Error("Not allowed by CORS"));
       }
    },
-   methods: ['GET', 'OPTIONS'],
-   allowedHeaders: ['Content-Type'],
-   credentials: false,
-};
+   methods: ["GET", "OPTIONS"],
+   allowedHeaders: ["Content-Type"],
+}));
 
 
 // app.use(cors(corsOptions));
-app.use(cors());
+// app.use(cors());
 
 const {
    OZON_CLIENT_ID,
@@ -43,7 +45,7 @@ if (!OZON_CLIENT_ID || !OZON_API_KEY) {
    // do not exit; allow local/mock routes to function
 }
 
-const port = Number(PORT) || 3030;
+const port = Number(PORT) || "0.0.0.0";
 
 app.use("/api/products", productsRouter);
 app.get("/api/test", (req, res) => {
