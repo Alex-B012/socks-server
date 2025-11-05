@@ -19,7 +19,7 @@ const corsOptions: cors.CorsOptions = {
          callback(new Error('Not allowed by CORS'), false);
       }
    },
-   methods: 'GET',
+   methods: ['GET'],
    allowedHeaders: 'Content-Type',
    credentials: false,
 };
