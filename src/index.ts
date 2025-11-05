@@ -6,18 +6,16 @@ import productsRouter from "./routers/productsRouter";
 dotenv.config();
 
 const app = express();
+const website_url = process.env.WEBSITE_URL;
 const localhost = process.env.LOCALHOST;
-// const website_url = process.env.WEBSITE_URL;
 
 app.use(express.json());
 
 const allowedOrigins = [
-   'https://socks-store-e53637-hf9sahf-a789fhsauh.netlify.app',
-   'http://localhost:3000'
+   website_url,
+   localhost
 ].filter(Boolean);
 
-
-// console.log(localhost, website_url);
 app.use(cors({
    origin: function (origin, callback) {
       if (!origin) return callback(null, true);
@@ -31,11 +29,6 @@ app.use(cors({
    methods: ["GET", "OPTIONS"],
    allowedHeaders: ["Content-Type"],
 }));
-
-
-
-// app.use(cors(corsOptions));
-// app.use(cors());
 
 const {
    OZON_CLIENT_ID,
