@@ -7,13 +7,13 @@ dotenv.config();
 
 const app = express();
 const localhost = process.env.LOCALHOST;
-const website_url = process.env.WEBSITE_URL;
+// const website_url = process.env.WEBSITE_URL;
 
 app.use(express.json());
 
 const allowedOrigins = [
-   website_url,
-   localhost
+   'https://socks-store-e53637-hf9sahf-a789fhsauh.netlify.app',
+   'http://localhost:3000'
 ].filter(Boolean);
 
 
