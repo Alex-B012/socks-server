@@ -11,6 +11,8 @@ const website_url = process.env.WEBSITE_URL;
 
 app.use(express.json());
 
+console.log(localhost, website_url);
+
 const corsOptions: cors.CorsOptions = {
    origin: (origin, callback) => {
       const allowedOrigins = [localhost, website_url].filter(Boolean);
@@ -42,8 +44,8 @@ if (!OZON_CLIENT_ID || !OZON_API_KEY) {
 
 const port = Number(PORT) || 3030;
 
-app.use("/products", productsRouter);
-app.get("/test", (req, res) => {
+app.use("/api/products", productsRouter);
+app.get("/api/test", (req, res) => {
    res.json({ message: "CORS OK" });
 });
 

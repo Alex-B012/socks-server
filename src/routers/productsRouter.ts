@@ -5,7 +5,7 @@ const router = Router();
 
 router.get("/", async (_req: Request, res: Response) => {
    try {
-
+      console.log("request - api/products");
       const listOfProductIdentifiers = await getProductIdentifiers();
       const listOfProducts = await Promise.all(
          listOfProductIdentifiers.map(async (item) => {
