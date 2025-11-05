@@ -19,16 +19,19 @@ const allowedOrigins = [
 
 // console.log(localhost, website_url);
 app.use(cors({
-   origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
+   origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
          callback(null, true);
       } else {
+         console.warn(`Blocked by CORS: ${origin}`);
          callback(new Error("Not allowed by CORS"));
       }
    },
    methods: ["GET", "OPTIONS"],
    allowedHeaders: ["Content-Type"],
 }));
+
 
 
 // app.use(cors(corsOptions));
@@ -45,13 +48,13 @@ if (!OZON_CLIENT_ID || !OZON_API_KEY) {
    // do not exit; allow local/mock routes to function
 }
 
-const port = Number(PORT) || "0.0.0.0";
-
 app.use("/api/products", productsRouter);
 app.get("/api/test", (req, res) => {
    res.json({ message: "CORS OK" });
 });
 
-app.listen(port, () => {
+const port = Number(PORT) || 3030;
+app.listen(port, "0.0.0.0", () => {
    console.log(`Server running at http://localhost:${port}`);
 });
+
