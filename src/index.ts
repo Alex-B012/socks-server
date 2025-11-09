@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import productsRouter from "./routers/productsRouter";
+import { initializeProductCache } from "./services/productsService";
 
 dotenv.config();
 
@@ -44,7 +45,8 @@ if (!OZON_CLIENT_ID || !OZON_API_KEY) {
 app.use("/api/products", productsRouter);
 
 const port = Number(PORT) || 3030;
-app.listen(port, "0.0.0.0", () => {
+app.listen(port, "0.0.0.0", async () => {
    console.log(`Server running at http://localhost:${port}`);
+   await initializeProductCache();
 });
 
