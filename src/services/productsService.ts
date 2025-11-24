@@ -53,14 +53,14 @@ async function fetchProductsFromOzon() {
 export async function getProductsData() {
    const cached = getCache<any[]>(CACHE_KEY);
    if (cached) {
-      console.log("✅ Используются данные из кэша");
+      // console.log("✅ Используются данные из кэша");
       return cached;
    }
 
-   console.log("🔄 Кэш пуст — загружаем данные с Ozon...");
+   // console.log("🔄 Кэш пуст — загружаем данные с Ozon...");
    const products = await fetchProductsFromOzon();
    setCache(CACHE_KEY, products);
-   console.log("✅ Данные загружены и закэшированы на 24 часа");
+   // console.log("✅ Данные загружены и закэшированы на 24 часа");
 
    return products;
 }
@@ -70,23 +70,25 @@ export async function getProductsData() {
  */
 export async function initializeProductCache() {
    try {
-      console.log("🚀 Инициализация кэша товаров при старте сервера...");
+      // console.log("🚀 Инициализация кэша товаров при старте сервера...");
       const products = await fetchProductsFromOzon();
       setCache(CACHE_KEY, products);
-      console.log("✅ Кэш товаров успешно создан");
+      // console.log("✅ Кэш товаров успешно создан");
 
       // Автоматическое обновление каждые 24 часа
       setInterval(async () => {
          try {
-            console.log("♻️ Обновление данных товаров...");
+            // console.log("♻️ Обновление данных товаров...");
             const updated = await fetchProductsFromOzon();
             setCache(CACHE_KEY, updated);
-            console.log("✅ Кэш товаров обновлён на следующие 24 часа");
+            // console.log("✅ Кэш товаров обновлён на следующие 24 часа");
          } catch (err) {
-            console.error("⚠️ Ошибка при обновлении данных с OZON:", err);
+            // console.error("⚠️ Ошибка при обновлении данных с OZON:", err);
+            console.error("⚠️ ERROR:  initializeProductCache OZON data update:", err);
          }
       }, REFRESH_INTERVAL);
    } catch (err) {
-      console.error("❌ Ошибка при инициализации кэша товаров:", err);
+      // console.error("❌ Ошибка при инициализации кэша товаров:", err);
+      console.error("❌ ERROR: initializeProductCache product cache initialization", err);
    }
 }
