@@ -4,7 +4,6 @@ import { getProductsData } from "../services/productsService";
 const router = Router();
 
 router.get("/", async (_req: Request, res: Response) => {
-   // console.log("GET request from a user")
    try {
       const products = await getProductsData();
       res.json(products);

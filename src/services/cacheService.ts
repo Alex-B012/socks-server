@@ -1,6 +1,6 @@
 import NodeCache from "node-cache";
 
-const PERIOD = 60 * 60 * 24;
+const PERIOD = 60 * 60 * 8; // 8 hours
 const cache = new NodeCache({ stdTTL: PERIOD });
 
 export function setCache<T>(key: string, data: T) {
