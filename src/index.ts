@@ -15,16 +15,13 @@ const allowedOrigins = [
    website_url,
 ].filter(Boolean);
 
-console.log("Allowed Origins for CORS:", allowedOrigins);
-
 app.use(cors({
    origin: function (origin, callback) {
-      console.log("CORS check for origin:", origin);
       if (!origin) return callback(null, true);
       if (allowedOrigins.includes(origin)) {
          callback(null, true);
       } else {
-         console.warn(`Blocked by CORS: ${origin}`);
+         // console.warn(`Blocked by CORS: ${origin}`);
          callback(new Error("Not allowed by CORS"));
       }
    },
@@ -46,7 +43,7 @@ app.use("/api/products", productsRouter);
 
 const port = Number(PORT) || 3000;
 app.listen(port, "0.0.0.0", async () => {
-   console.log(`Server running at http://localhost:${port}`);
+   console.log(`SUCCESS: Server running at http://localhost:${port}`);
    await initializeProductCache();
 });
 
